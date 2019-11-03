@@ -40,7 +40,7 @@ $(function() {
 
 // test for ensuring that menu is hidden by default
          it('the menu is hidden by default', function() {
-           expect(document.body.classList.contains('menu-hidden')).toBe(true);
+           expect($('body').hasClass('menu-hidden')).toBe(true);
          });
 
 // test for checking the visibility of the menu when it is clicked
@@ -61,10 +61,9 @@ $(function() {
                loadFeed(0,done);
            });
 
-// test for checking the availablity of at least one entry when loading is done
+// test for checking the availability of at least one entry when loading is done
            it('there is at least one entry element when loadFeed is done', function() {
-                  const entries = document.querySelectorAll('.entry');
-                  expect(entries.length).toBeGreaterThan(0);
+                  expect($('.feed .entry').length).toBeGreaterThan(0);
 
            });
 
@@ -76,15 +75,14 @@ $(function() {
           let firstFeed, secondFeed;
 // load more than one feed and compare them
           beforeEach(done => {
+            // nested function
                  loadFeed(0,function(){
                    firstFeed = document.querySelector('.feed').innerHTML;
-                   done();
-                 });
-
-                 loadFeed(1,function(){
-                   secondFeed = document.querySelector('.feed').innerHTML;
-                   done();
-                 });
+                   loadFeed(1,function(){
+                     secondFeed = document.querySelector('.feed').innerHTML;
+                     done();
+                   });
+              });
           });
 
 // test to make sure content is loading and feeds are changing
